@@ -1,7 +1,20 @@
+document.addEventListener('DOMContentLoaded', function() {
+  fetchBooks();
+});
+
 function fetchBooks() {
   // To pass the tests, don't forget to return your fetch!
-  
-}
+  fetch (
+    "https://anapioficeandfire.com/api/books",
+    {
+      method: "GET",
+    }
+  ).then (response => response.json()) //isn't response.json the promise?
+  .then((data) => {
+    const {main} = data
+    renderBooks(main)
+  });
+};
 
 function renderBooks(books) {
   const main = document.querySelector('main');
@@ -12,6 +25,19 @@ function renderBooks(books) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  fetchBooks();
-});
+
+// //WRONG
+// function getGithubOrgs(url) {
+//   fetch(url).then((response) => response.json());
+// }
+// getGithubOrgs(
+//   "https://api.github.com/users/deekshasharma/orgs"
+// ).then((jsonData) => console.log(jsonData));
+
+// //RIGHT
+// function getGithubOrgs(url) {
+//   return fetch(url).then((response) => response.json());
+// }
+// getGithubOrgs("https://api.github.com/users/deekshasharma/orgs").then((res) =>
+//   console.log(res)
+// );
